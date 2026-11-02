@@ -1,0 +1,19 @@
+{
+  "name": "dsh-dafeiyu-dev-preset",
+  "version": "1.0.0",
+  "private": true,
+  "description": "大肥鱼机器人项目的开发与维护模式（Agent preset dafeiyu-dev）",
+  "type": "module",
+  "main": "cordis.patch.yml",
+  "files": [
+    "cordis.patch.yml"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "engines": {
+    "dsh": ">=0.2.1-0 <0.3.0-0"
+  }
+}

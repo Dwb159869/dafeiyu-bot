@@ -1,0 +1,8 @@
+state
+vault
+.env
+*.tar.gz
+*.zip
+tests
+validation.json
+.git

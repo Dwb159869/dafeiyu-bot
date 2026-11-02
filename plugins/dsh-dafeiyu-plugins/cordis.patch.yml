@@ -1,0 +1,6 @@
+# 插件管理工具（大肥鱼自用）
+- insert:
+    - id: dafeiyu-plugins
+      name: dsh-dafeiyu-plugins
+      config:
+        owners: ['OWNER_QQ']

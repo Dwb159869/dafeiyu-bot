@@ -1,0 +1,7 @@
+- insert:
+    - id: remember-you
+      name: dsh-remember-you
+      config:
+        root: '/workspace/vault'
+        owners: []
+        budgetChars: 800

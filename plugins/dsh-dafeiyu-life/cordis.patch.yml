@@ -1,0 +1,12 @@
+- insert:
+    - id: dafeiyu-life
+      name: dsh-dafeiyu-life
+      config:
+        root: '/home/example/dafeiyu-linux/大肥鱼小窝'
+        owners:
+          - 'OWNER_QQ'
+        timeZone: Asia/Shanghai
+        sleepStart: '23:40'
+        sleepEnd: '08:10'
+        presets:
+          - companion

@@ -1,0 +1,35 @@
+{
+  "At": "2026-10-29T21:14:05.215623+08:00",
+  "Passed": true,
+  "Checks": [
+    "bash syntax: install.sh",
+    "bash syntax: logs.sh",
+    "bash syntax: model.sh",
+    "bash syntax: start-qq.sh",
+    "bash syntax: start.sh",
+    "bash syntax: status.sh",
+    "bash syntax: stop.sh",
+    "bash syntax: app/entrypoint.sh",
+    "bash syntax: lib/common.sh",
+    "all JavaScript sources parse",
+    "16 initialization, no-history, preservation and owner checks",
+    "Compose validates, shared file path, loopback-only web ports, no automatic restart",
+    "no existing memories, chats, credentials, private account IDs, model weights or OS binaries"
+  ],
+  "InitializationChecks": 16,
+  "ComposeValidator": "5.6.1 standalone config; no Docker engine needed",
+  "BashParser": "shfmt 3.14.1",
+  "DockerImagesManifestVerified": {
+    "node:24.22.1-bookworm-slim": "sha256:be8204d4bd327363357f532187b752ff62759c31bedf98e9e18fc08c9cbd605c",
+    "motricseven7/snowluma:v2.2.1": "sha256:29536cd34e9c9c3f8a942be4e5cd6a17d366acd9b2096aa56b5863d024a80d23",
+    "ollama/ollama:0.40.12": "sha256:20d1bbfbabe1c97ba4b16301f08a20d8484bcf77047742a3cb71c613d8e12d0b"
+  },
+  "SupportedImageArchitectures": [
+    "linux/amd64",
+    "linux/arm64"
+  ],
+  "NpmDependencyLockPackages": 701,
+  "LinuxDockerBuildExecuted": false,
+  "RealQQLoginTestExecuted": false,
+  "Reason": "Current Windows device has no running Linux/Docker environment; package is validated statically and by cross-platform initialization tests."
+}

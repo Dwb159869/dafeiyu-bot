@@ -1,0 +1,29 @@
+# 运行期数据与个人资料
+state/
+backups/
+native/
+dist/
+install-downloads/
+reference/
+大肥鱼小窝/
+vault
+*.log
+*.db
+*.sqlite
+*.jsonl
+
+# 密钥
+.env
+.dafeiyu-linux
+.dafeiyu-permissions
+管理界面入口.txt
+secrets/
+
+# 依赖
+node_modules/
+*.tgz.part
+
+# 编辑器
+.DS_Store
+.idea/
+.vscode/

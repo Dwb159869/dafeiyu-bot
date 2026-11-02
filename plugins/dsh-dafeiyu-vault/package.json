@@ -1,0 +1,21 @@
+{
+  "name": "dsh-dafeiyu-vault",
+  "version": "0.1.0",
+  "description": "大肥鱼小窝文件工具（DSH 版）：读写整理 /workspace/vault，表情包检索，发文件给主人。",
+  "type": "module",
+  "main": "lib/index.js",
+  "files": ["lib", "dsh.plugin.json", "cordis.patch.yml"],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "engines": {
+    "node": ">=22.13",
+    "dsh": ">=0.2.1-0 <0.3.0-0"
+  }
+}

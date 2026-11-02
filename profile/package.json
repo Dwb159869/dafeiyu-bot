@@ -1,0 +1,29 @@
+{
+  "name": "dafeiyu-linux-profile",
+  "private": true,
+  "version": "0.1.0",
+  "dependencies": {
+    "@deepseek-ai/dsh": "0.2.1-rc.3",
+    "@playwright/mcp": "0.0.83",
+    "dsh-companion-core": "file:./vendor/dsh-companion-core-0.17.1.tgz",
+    "dsh-napcat-bridge": "file:./vendor/dsh-napcat-bridge-0.20.4.tgz",
+    "dsh-dafeiyu-vault": "file:./plugins/dsh-dafeiyu-vault",
+    "dsh-dafeiyu-qq-tools": "file:./plugins/dsh-dafeiyu-qq-tools",
+    "dsh-remember-you": "file:./plugins/dsh-remember-you",
+    "dsh-dafeiyu-runtime": "file:./plugins/dsh-dafeiyu-runtime"
+  },
+  "dsh": {
+    "profile": {
+      "bundles": [
+        "@deepseek-ai/dsh-base",
+        "@deepseek-ai/dsh-web-app",
+        "dsh-companion-core",
+        "dsh-napcat-bridge",
+        "dsh-dafeiyu-vault",
+        "dsh-dafeiyu-qq-tools",
+        "dsh-remember-you",
+        "dsh-dafeiyu-runtime"
+      ]
+    }
+  }
+}

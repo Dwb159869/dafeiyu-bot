@@ -1,0 +1,21 @@
+{
+  "name": "dsh-dafeiyu-qq-tools",
+  "version": "0.1.0",
+  "description": "大肥鱼 QQ 资料与空间工具（DSH 版）：改资料、改签名、发/删说说、改群名片。只对主人私聊开放。",
+  "type": "module",
+  "main": "lib/index.js",
+  "files": ["lib", "dsh.plugin.json", "cordis.patch.yml"],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "engines": {
+    "node": ">=22.13",
+    "dsh": ">=0.2.1-0 <0.3.0-0"
+  }
+}

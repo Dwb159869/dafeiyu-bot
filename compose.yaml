@@ -1,0 +1,62 @@
+name: ${COMPOSE_PROJECT_NAME:-dafeiyu-linux}
+services:
+  dsh:
+    build:
+      context: .
+      args:
+        APP_UID: ${APP_UID:-1000}
+        APP_GID: ${APP_GID:-1000}
+    image: ${COMPOSE_PROJECT_NAME:-dafeiyu-linux}:dsh-0.2.1-rc.3
+    init: true
+    restart: "no"
+    shm_size: 1gb
+    environment:
+      DSH_HOME: /data/dsh
+      OWNER_QQ: ${OWNER_QQ:?set OWNER_QQ}
+      BOT_QQ: ${BOT_QQ:?set BOT_QQ}
+      ONEBOT_TOKEN: ${ONEBOT_TOKEN:?set ONEBOT_TOKEN}
+      ONEBOT_HTTP_TOKEN: ${ONEBOT_HTTP_TOKEN:?set ONEBOT_HTTP_TOKEN}
+      DSH_PORT: ${DSH_PORT:-3080}
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+      TZ: Asia/Shanghai
+    ports:
+      - "127.0.0.1:${DSH_PORT:-3080}:3080"
+    volumes:
+      - ./state/dsh:/data/dsh
+      - ./vault:/workspace/vault
+    networks: [bot]
+  snowluma:
+    image: motricseven7/snowluma:v2.2.1@sha256:29536cd34e9c9c3f8a942be4e5cd6a17d366acd9b2096aa56b5863d024a80d23
+    profiles: [qq]
+    restart: "no"
+    stop_grace_period: 60s
+    shm_size: 1gb
+    cap_add: [SYS_PTRACE]
+    security_opt: [seccomp=unconfined]
+    environment:
+      SNOWLUMA_UID: ${APP_UID:-1000}
+      SNOWLUMA_GID: ${APP_GID:-1000}
+      SNOWLUMA_WEBUI_HOST: 0.0.0.0
+      SNOWLUMA_WEBUI_PORT: "5099"
+      SNOWLUMA_HOOK_AUTOLOAD: "0"
+      SNOWLUMA_QQ_FLAGS: --disable-gpu --disable-software-rasterizer --disable-gpu-compositing
+      TZ: Asia/Shanghai
+    ports:
+      - "127.0.0.1:${SNOWLUMA_PORT:-5099}:5099"
+      - "127.0.0.1:${NOVNC_PORT:-6081}:6081"
+    volumes:
+      - ./state/snowluma:/app/data
+      - ./state/qq-config:/app/.config
+      - ./state/qq-data:/app/.local/share
+      - ./vault:/workspace/vault
+    networks: [bot]
+  ollama:
+    image: ollama/ollama:0.40.12@sha256:20d1bbfbabe1c97ba4b16301f08a20d8484bcf77047742a3cb71c613d8e12d0b
+    restart: "no"
+    environment:
+      OLLAMA_HOST: 0.0.0.0:11434
+    volumes:
+      - ./state/ollama:/root/.ollama
+    networks: [bot]
+networks:
+  bot: {}

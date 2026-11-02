@@ -1,0 +1,7 @@
+- insert:
+    - id: dafeiyu-qq-tools
+      name: dsh-dafeiyu-qq-tools
+      config:
+        owners:
+          - 'OWNER_QQ'
+        moodWords: true

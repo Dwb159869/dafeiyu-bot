@@ -1,0 +1,21 @@
+{
+  "name": "dsh-dafeiyu-mind",
+  "version": "0.1.0",
+  "description": "大肥鱼心智层：把生活状态、日程梦、B 站取稿与手账、主动消息收进一个插件（一个库、一个时钟、一个发言闸门）。",
+  "type": "module",
+  "main": "lib/index.js",
+  "files": ["lib", "vendor", "cordis.patch.yml", "NOTICE.md"],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "engines": {
+    "node": ">=22.13",
+    "dsh": ">=0.2.1-0 <0.3.0-0"
+  }
+}
