@@ -28,12 +28,12 @@
 
 ## 架构
 
-一句话：**QQ ↔ NapCat ↔ OneBot ↔ DSH 宿主 ↔ 插件群 ↔ 她的数据**。
+一句话：**QQ ↔ SnowLuma（OneBot）↔ DSH 宿主 ↔ 插件群 ↔ 她的数据**。
 
 ```
 QQ / 浏览器
    │
-NapCat（QQ 协议端）── OneBot 11 ──▶ dsh-napcat-bridge（收发·分段·心跳·清洗）
+Linux QQ + SnowLuma（OneBot 11）──▶ dsh-napcat-bridge（收发·分段·心跳·清洗）
                                          │
                                          ▼
                             DSH 宿主（agent loop / 工具 / 权限 / 会话）
@@ -86,7 +86,8 @@ start.sh / stop.sh / status.sh / logs.sh / start-qq.sh   原生方案的启停
 
 * Ubuntu（或其它能跑 DSH 的 Linux），Node.js 22+，Python 3.10+
 * DSH `0.2.1-rc.3`（`npm i -g @deepseek-ai/dsh` 或容器内自带）
-* NapCat / SnowLuma（QQ 协议端）+ OneBot 11 反向 WS
+* QQ 协议端：**SnowLuma**（注入官方 Linux QQ，OneBot 11，反向 WS 到桥接插件的 `6199/ws`）；
+  用 NapCat 也行——桥接插件是通用的 OneBot 11，插件名里的 "napcat" 只是历史
 * 可选：ComfyUI + Qwen-Image（生图）、yutto/yt-dlp + ffmpeg（看她真去看 B 站视频）
 * 可选：`bge-m3` 或其他本地 embedding（表情包语义检索；没有就退关键词）
 
@@ -114,7 +115,7 @@ cp .env.example .env && vi .env
 docker compose up -d --build
 ```
 
-容器方案把 DSH、NapCat、SnowLuma 一起装进镜像；**插件同样在 `plugins/` 里，改完重启容器生效**。
+容器方案起三个服务：`dsh`（宿主）、`snowluma`（QQ 客户端 + OneBot）、`ollama`（表情包向量）；**插件同样在 `plugins/` 里，改完重启容器生效**。
 
 ---
 
