@@ -1,0 +1,9 @@
+# dsh 通过 package.json 的 dsh.bundle.patch 加载这个文件，把插件挂到宿主上。
+# 配置写在 profile 自己的 cordis.patch.yml 里，用同一个 id 覆盖：
+#   - id: napcat-bridge
+#     config:
+#       ws_reverse_port: 6199
+#       ws_reverse_token: ...
+- insert:
+  - id: napcat-bridge
+    name: 'dsh-napcat-bridge'

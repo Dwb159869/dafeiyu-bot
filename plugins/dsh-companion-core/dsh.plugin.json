@@ -1,0 +1,13 @@
+{
+  "id": "dsh-companion-core",
+  "version": "0.17.1",
+  "main": "./lib/index.js",
+  "description": "Companion core for dsh: a live persona and core memory applied to every session, round-based context management with first-person Chinese summaries, and a message archive.",
+  "engines": {
+    "dsh": ">=0.2.0-0 <0.2.1-0 || >=0.2.1-0 <0.2.2-0 || >=0.2.2-0 <0.2.3-0 || >=0.2.3-0 <0.2.4-0 || >=0.2.4-0 <0.2.5-0 || >=0.2.5-0 <0.2.6-0 || >=0.2.6-0 <0.2.7-0 || >=0.2.7-0 <0.2.8-0 || >=0.2.8-0 <0.2.9-0 || >=0.2.9-0 <0.3.0-0"
+  },
+  "contributes": {
+    "tools": [],
+    "skills": []
+  }
+}

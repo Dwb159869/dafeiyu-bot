@@ -27,3 +27,8 @@ node_modules/
 .DS_Store
 .idea/
 .vscode/
+
+# 插件运行期数据
+plugins/*/data/*.db
+plugins/*/data/*.jsonl
+plugins/*/*.zip

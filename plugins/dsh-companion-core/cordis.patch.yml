@@ -1,0 +1,81 @@
+# dsh 通过 package.json 的 dsh.bundle.patch 加载这个文件：
+#   1. 挂上插件二的常驻部分（行 id companion-core）；
+#   2. 把 dsh 的默认预设改成「陪伴模式」（行 id agent-preset-registry 的 default；你在网页里自己选的默认预设 selectedDefault 仍然优先）；
+#   3. 加一个「陪伴模式」预设（id companion）：工具照抄 dsh 0.2.1 的标准模式，不带 dsh-persona 行
+#      （人格由插件二在组装环节统一替换），压缩换成插件二的「上下文管理」（dsh-companion-core/context）。
+# 配置写在 profile 自己的 cordis.patch.yml 里，用同一个 id 覆盖：
+#   - id: companion-core
+#     config:
+#       masterMaxRounds: 60
+- insert:
+  - id: companion-core
+    name: 'dsh-companion-core'
+  - id: preset-companion
+    name: '@deepseek-ai/dsh-agent-preset'
+    config:
+      id: companion
+      name: 陪伴模式
+      description: 大肥鱼用的预设：人格和核心记忆由 dsh-companion-core 管，按轮数截断或中文第一人称压缩上下文
+      order: 5
+      plugins:
+        - id: agent-instructions
+          name: '@deepseek-ai/dsh-agent-instructions'
+          config:
+            maxBytes: 65536
+        - id: time-context
+          name: '@deepseek-ai/dsh-time-context'
+        - id: tool-bash
+          name: '@deepseek-ai/dsh-tool-bash'
+          disabled: !!js process.platform === 'win32'
+        - id: tool-pwsh
+          name: '@deepseek-ai/dsh-tool-pwsh'
+          disabled: !!js process.platform !== 'win32'
+        - id: tool-fs
+          name: '@deepseek-ai/dsh-tool-fs'
+        - id: tool-fs-search
+          name: '@deepseek-ai/dsh-tool-fs-search'
+          config:
+            sampleOverCapGlobResults: false
+        - id: tool-jobs
+          name: '@deepseek-ai/dsh-tool-jobs'
+        - id: tool-schedule
+          name: '@deepseek-ai/dsh-tool-schedule'
+        - id: skill-filesystem
+          name: '@deepseek-ai/dsh-skill-filesystem'
+        - id: tool-skill
+          name: '@deepseek-ai/dsh-tool-skill'
+        - id: compaction
+          name: cordis:group
+          group: true
+          isolate:
+            compaction: true
+            toolResultPruner: true
+          config:
+            - id: companion-context
+              name: 'dsh-companion-core/context'
+            - id: command-compact
+              name: '@deepseek-ai/dsh-command-compact'
+            - id: tool-result-pruner
+              name: '@deepseek-ai/dsh-compaction-tool-result-pruner'
+              config:
+                thresholdChars: 8192
+                headChars: 4096
+                tailChars: 1024
+        - id: tool-ask-user
+          name: '@deepseek-ai/dsh-tool-ask-user'
+        - id: tool-todo
+          name: '@deepseek-ai/dsh-tool-todo'
+          config:
+            allowParallelInProgress: true
+        - id: tool-web
+          name: '@deepseek-ai/dsh-tool-web'
+          config:
+            fetch: true
+            searchTimeoutMs: 60000
+        - id: present
+          name: '@deepseek-ai/dsh-tool-present'
+
+# 默认用「陪伴模式」（dsh-web-app 里是 standard；插件二的补丁层在它之后，所以这里覆盖它）
+- id: agent-preset-registry
+  config:
+    default: companion

@@ -1,0 +1,13 @@
+{
+  "id": "dsh-napcat-bridge",
+  "version": "0.20.4",
+  "main": "./lib/index.js",
+  "description": "Connect NapCat (OneBot v11, reverse WebSocket) to dsh; a port of AstrBot's aiocqhttp adapter.",
+  "engines": {
+    "dsh": ">=0.2.0-0 <0.2.1-0 || >=0.2.1-0 <0.2.2-0 || >=0.2.2-0 <0.2.3-0 || >=0.2.3-0 <0.2.4-0 || >=0.2.4-0 <0.2.5-0 || >=0.2.5-0 <0.2.6-0 || >=0.2.6-0 <0.2.7-0 || >=0.2.7-0 <0.2.8-0 || >=0.2.8-0 <0.2.9-0 || >=0.2.9-0 <0.3.0-0"
+  },
+  "contributes": {
+    "tools": [],
+    "skills": []
+  }
+}

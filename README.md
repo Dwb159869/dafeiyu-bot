@@ -28,21 +28,26 @@
 
 ## 架构
 
+一句话：**QQ ↔ NapCat ↔ OneBot ↔ DSH 宿主 ↔ 插件群 ↔ 她的数据**。
+
 ```
-QQ ←→ NapCat ←→ OneBot ←→ dsh-napcat-bridge ─┐
-                                              ├─→ DSH profile "web"（Host + Client）
-浏览器 ←──────────────────────────────────────┘      ├── companion-core（人格/记忆/召回）
-                                                      ├── dafeiyu-mind（心智层，每轮注入）
-                                                      ├── dafeiyu-vault（表情包/小窝文件）
-                                                      ├── dafeiyu-qq-tools（管理员工具）
-                                                      ├── image-studio（生图）
-                                                      └── 其它插件…
+QQ / 浏览器
+   │
+NapCat（QQ 协议端）── OneBot 11 ──▶ dsh-napcat-bridge（收发·分段·心跳·清洗）
+                                         │
+                                         ▼
+                            DSH 宿主（agent loop / 工具 / 权限 / 会话）
+                                         │
+        ┌────────────┬──────────────┬────┴────────┬──────────────┐
+  companion-core  dafeiyu-mind  dafeiyu-vault   能力插件      dsh-mood
+   人格·记忆       心智层·注入    文件·表情包   生图/管理/梗库   心情·设置页
+        │            │              │              │
+   ~/.dsh/companion  mind.db      大肥鱼小窝   ~/.dsh/image-studio
 ```
 
-* 宿主：DSH `0.2.1-rc.3`，profile 名 `web`，Web GUI 默认 `127.0.0.1:3080`。
-* 插件都装在 profile 的 `plugins/` 下，`node_modules/<name>` 软链过去——**这样插件源码可直接改、改完即生效**，不会被 npm 重装覆盖。
-
----
+一次消息的完整生命周期（进来 → 建 turn → 组装提示词 → 工具循环 → 出去 → 收尾）、
+每个模块注册了什么 / 定时器多久跑一次 / 数据落在哪 / 想加东西该改哪，
+都在 **[docs/架构.md](docs/架构.md)**——那份是详细版，这里只留骨架。
 
 ## 目录结构
 
@@ -52,6 +57,11 @@ plugins/            自研与改造过的插件（每个是一份 DSH 插件包�
   dsh-dafeiyu-vault/      小窝文件 + 表情包库与检索
   dsh-dafeiyu-qq-tools/   管理员 shell 工具 + 会话权限纠正
   dsh-dafeiyu-plugins/    运行时插件开关
+  dsh-mood/               心情状态机 + 设置页（人设/心情日记/硬盘记忆）
+  dsh-memewiki/           梗库（6668 条，SQLite）
+  dsh-bili-whale/         B 站登录/体检与 CLI
+  dsh-companion-core/     人格·记忆·召回（上游 0.17.1 + 本地补丁）
+  dsh-napcat-bridge/      QQ 通道（上游 0.20.4 + 本地补丁）
   dsh-dafeiyu-life/       旧版"生活"插件（已被 mind 取代，留作参考）
   dsh-dafeiyu-runtime/    运行时杂项
   dsh-remember-you/       记忆管理界面
@@ -63,7 +73,7 @@ app/                Docker 镜像内的装配脚本（init / check / 补丁）
 lib/                shell 公共函数
 tools/              各种运维与测试脚本（重启、迁移、表情重标、质检）
 vendor/             打补丁的第三方插件 tgz（companion-core / napcat-bridge）
-docs/               运行说明、安装验收、自定义设定说明
+docs/               架构.md（详细架构）、运行说明、安装验收、自定义设定
 compose.yaml        Docker 部署
 Dockerfile
 install.sh          容器方案安装脚本
@@ -149,6 +159,17 @@ bash tools/mind-door-audit.mjs        # 记忆"门牌"巡检（会话没了就�
 2. **profile 层补丁只能覆盖已有行**，新增必须 `- insert: [{id, name}]`，否则报 `patch: entry "x" not found` 且静默无效。
 3. **第三方插件要复制进 `plugins/` 再软链**，否则 npm 重装会冲掉你打的补丁。
 4. **QQ 端的审批框没人点**，所以管理员工具那层会把会话权限自纠正成 `danger-full-access` + `never`；否则每条命令都卡在弹窗上。
+
+---
+
+## 文档
+
+| 文件 | 内容 |
+| --- | --- |
+| [docs/架构.md](docs/架构.md) | **详细架构**：分层、一次消息的生命周期、每个模块怎么跑、数据在哪、扩展点 |
+| [docs/运行说明.md](docs/运行说明.md) | 本机运行记录与历次改动（踩坑最多的一份） |
+| [docs/安装验收.md](docs/安装验收.md) | 干净安装的验收清单 |
+| [docs/自定义设定.md](docs/自定义设定.md) | 人格与自定义参数怎么装 |
 
 ---
 
