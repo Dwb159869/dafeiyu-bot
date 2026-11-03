@@ -163,6 +163,17 @@ bash tools/mind-door-audit.mjs        # 记忆"门牌"巡检（会话没了就�
 
 ---
 
+## 插件源码
+
+本项目用到的自研插件与改造插件单独开了一个仓库：
+
+**[Dwb159869/dafeiyu-plugins](https://github.com/Dwb159869/dafeiyu-plugins)** —— 按 `self/`（自研 5 个，MIT）与 `forked/`（基于上游改造 5 个，沿用上游 AGPL/MIT）分目录，每个 fork 带 `FORK_NOTES.md` 说明改了什么、怎么跟上游同步。
+
+| 分类 | 插件 |
+| --- | --- |
+| 自研 | `dsh-dafeiyu-vault` · `dsh-dafeiyu-qq-tools` · `dsh-dafeiyu-plugins` · `dsh-dafeiyu-runtime` · `dsh-remember-you` |
+| 改造 | `dsh-companion-core` · `dsh-napcat-bridge` · `dsh-image-studio` · `dsh-mood` · `dsh-memewiki` |
+
 ## 文档
 
 | 文件 | 内容 |
